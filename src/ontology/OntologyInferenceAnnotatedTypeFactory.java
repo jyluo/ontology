@@ -5,9 +5,11 @@ import javax.lang.model.element.AnnotationMirror;
 import org.checkerframework.common.basetype.BaseAnnotatedTypeFactory;
 import org.checkerframework.framework.type.AnnotatedTypeFactory;
 import org.checkerframework.framework.type.AnnotatedTypeMirror;
+import org.checkerframework.framework.type.QualifierHierarchy;
 import org.checkerframework.framework.type.treeannotator.ImplicitsTreeAnnotator;
 import org.checkerframework.framework.type.treeannotator.ListTreeAnnotator;
 import org.checkerframework.framework.type.treeannotator.TreeAnnotator;
+import org.checkerframework.framework.util.MultiGraphQualifierHierarchy;
 
 import com.sun.source.tree.NewArrayTree;
 import com.sun.source.tree.NewClassTree;
@@ -19,11 +21,16 @@ import com.sun.source.util.TreePath;
 import checkers.inference.ConstraintManager;
 import checkers.inference.InferenceAnnotatedTypeFactory;
 import checkers.inference.InferenceChecker;
+import checkers.inference.InferenceQualifierHierarchy;
 import checkers.inference.InferenceTreeAnnotator;
 import checkers.inference.InferrableChecker;
 import checkers.inference.SlotManager;
 import checkers.inference.VariableAnnotator;
 import checkers.inference.model.ConstantSlot;
+import checkers.inference.model.PreferenceConstraint;
+import checkers.inference.model.Slot;
+import checkers.inference.model.SubtypeConstraint;
+import checkers.inference.model.VariableSlot;
 import ontology.qual.OntologyValue;
 import ontology.util.OntologyUtils;
 
@@ -40,6 +47,35 @@ public class OntologyInferenceAnnotatedTypeFactory extends InferenceAnnotatedTyp
         return new ListTreeAnnotator(new ImplicitsTreeAnnotator(this),
                 new OntologyInferenceTreeAnnotator(this, realChecker,
                         realTypeFactory, variableAnnotator, slotManager));
+    }
+
+    @Override
+    public QualifierHierarchy createQualifierHierarchy( MultiGraphQualifierHierarchy.MultiGraphFactory factory ) {
+        return new OntologyInferenceQualifierHierarchy(factory);
+    }
+
+    public class OntologyInferenceQualifierHierarchy extends InferenceQualifierHierarchy {
+
+        public OntologyInferenceQualifierHierarchy(MultiGraphFactory multiGraphFactory) {
+            super(multiGraphFactory);
+        }
+
+        @Override
+        public boolean isSubtype(final AnnotationMirror subtype, final AnnotationMirror supertype) {
+            super.isSubtype(subtype, supertype);
+            if (!isVarAnnot(subtype) || !isVarAnnot(supertype)) {
+                return true;
+            }
+
+            final Slot subSlot   = slotMgr.getSlot(subtype);
+            final Slot superSlot = slotMgr.getSlot(supertype);
+            if (subSlot instanceof ConstantSlot && superSlot instanceof VariableSlot) {
+//                System.out.println("\n--- Test ---: add preference: " + supertype + " to " + subSlot);
+                constraintMgr.add(new PreferenceConstraint((VariableSlot) superSlot, (ConstantSlot) subSlot, 50));
+            }
+
+            return true;
+        }
     }
 
     public class OntologyInferenceTreeAnnotator extends InferenceTreeAnnotator {
