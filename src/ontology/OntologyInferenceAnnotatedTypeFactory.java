@@ -29,7 +29,6 @@ import checkers.inference.VariableAnnotator;
 import checkers.inference.model.ConstantSlot;
 import checkers.inference.model.PreferenceConstraint;
 import checkers.inference.model.Slot;
-import checkers.inference.model.SubtypeConstraint;
 import checkers.inference.model.VariableSlot;
 import ontology.qual.OntologyValue;
 import ontology.util.OntologyUtils;
