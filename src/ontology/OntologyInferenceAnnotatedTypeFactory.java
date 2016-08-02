@@ -68,7 +68,8 @@ public class OntologyInferenceAnnotatedTypeFactory extends InferenceAnnotatedTyp
 
             final Slot subSlot   = slotMgr.getSlot(subtype);
             final Slot superSlot = slotMgr.getSlot(supertype);
-            if (subSlot instanceof ConstantSlot && superSlot instanceof VariableSlot) {
+            if (subSlot instanceof ConstantSlot && superSlot instanceof VariableSlot &&
+                    ! (superSlot instanceof ConstantSlot)) {
 //                System.out.println("\n--- Test ---: add preference: " + supertype + " to " + subSlot);
                 constraintMgr.add(new PreferenceConstraint((VariableSlot) superSlot, (ConstantSlot) subSlot, 50));
             }
