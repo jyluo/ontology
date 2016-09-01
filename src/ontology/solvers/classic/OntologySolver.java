@@ -42,7 +42,7 @@ public class OntologySolver implements InferenceSolver {
 
         Elements elements = processingEnvironment.getElementUtils();
         Ontology = AnnotationUtils.fromClass(elements, Ontology.class);
-        GraphBuilder graphBuilder = new GraphBuilder(slots, constraints);
+        GraphBuilder graphBuilder = new GraphBuilder(slots, constraints, true);
         ConstraintGraph constraintGraph = graphBuilder.buildGraph();
 
         List<SequenceSolver> sequenceSolvers = new ArrayList<>();

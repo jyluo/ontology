@@ -23,7 +23,7 @@ do
 done
 
 cd "$WORKING_DIR"
-running_cmd="python $DLJC/dljc -t inference --checker ontology.OntologyChecker --solver ontology.solvers.backend.OntologyConstraintSolver --solverArgs=\"backEndType=maxsatbackend.Lingeling,solveInParallel=false\" -o logs -m ROUNDTRIP -afud $WORKING_DIR/annotated -- $build_cmd"
+running_cmd="python $DLJC/dljc -t inference --checker ontology.OntologyChecker --solver ontology.solvers.backend.OntologyConstraintSolver --solverArgs=\"backEndType=maxsatbackend.Lingeling,solveInParallel=false\" --cfArgs=\"-AatfCacheSize=3000\" -o logs -m ROUNDTRIP -afud $WORKING_DIR/annotated -- $build_cmd"
 # running_cmd="python $DLJC/dljc -t inference --checker ontology.OntologyChecker --solver ontology.solvers.backend.OntologyConstraintSolver -o logs -m ROUNDTRIP -afud $WORKING_DIR/annotated -- $build_cmd"
 echo "============ Important variables ============="
 echo "JSR308: $JSR308"
