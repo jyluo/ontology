@@ -11,7 +11,7 @@ do
     shift
 done
 
-echo "run-dljc.sh $build_cmd 1> ontology.log 2> ontology-error.log"
+echo "time run-dljc.sh $build_cmd 1> ontology.log 2> ontology-error.log"
 
 time $JSR308/ontology/run-dljc.sh $build_cmd 1> ontology.log 2> ontology-error.log
 

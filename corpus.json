@@ -176,6 +176,14 @@
       "git-ref": "2881bf4aa61775ecb9f09278390a3572065b7ef8",
       "build": "mvn compile",
       "clean": "mvn clean"
-    }    
+    },
+    "ode4j":
+    {
+      "name": "ode4j",
+      "git-url": "https://github.com/CharlesZ-Chen/ode4j.git",
+      "git-ref": "annotated",
+      "build": "mvn install",
+      "clean": "mvn clean"
+    }
   }
 }
