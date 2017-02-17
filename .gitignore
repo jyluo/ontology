@@ -21,3 +21,9 @@ missingAnno/
 superTypeArgTest/
 unsat/
 violateCons/
+
+#corpus
+corpus/
+
+#python compiled C code
+*.pyc
