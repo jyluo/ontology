@@ -8,7 +8,7 @@ with open(os.path.join(WORKING_DIR, 'corpus.json')) as f:
 	CORPUS_INFO = json.loads(f.read())
 CORPUS_DIR = os.path.join(WORKING_DIR, "corpus")
 
-def collect_statistics():
+def clean_corpus():
 	ontology = os.getcwd()
 	with fetch_corpus.cd(CORPUS_DIR):
 		for project in CORPUS_INFO['projects'].values():
@@ -18,8 +18,9 @@ def collect_statistics():
 					PROJECT_DIR = os.path.join(PROJECT_DIR, project['build-dir'])
 
 				with fetch_corpus.cd(PROJECT_DIR):
-					print 'Running ' + project['name']
-					print fetch_corpus.run_cmd([ 'bash', WORKING_DIR+'/run-dljc-stats.sh', project['build'] ])['output']
+					print 'Cleaning ' + project['name']
+					print fetch_corpus.run_cmd(project['clean'].split(' '))['output']
+					print fetch_corpus.run_cmd(['rm', '-rf', 'ontology.log', 'ontology-error.log', 'ontology-inferred-slots-statistic.txt', 'post-verification-statistic.txt', 'solver-statistic.txt', 'annotated', 'default.jaif', 'logs'])['output']
 
 if __name__ == "__main__":
-	collect_statistics()
+	clean_corpus()
