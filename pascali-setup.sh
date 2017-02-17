@@ -9,7 +9,7 @@ WORKING_DIR=$(cd $(dirname "$0") && pwd)
 # export SHELLOPTS
 
 #default value is pascaliUWat. REPO_SITE may be set to other value for travis test purpose.
-export REPO_SITE="${REPO_SITE:-pascaliUWat}"
+export REPO_SITE="${REPO_SITE:-opprop}"
 
 echo "------ Downloading everthing from REPO_SITE: $REPO_SITE ------"
 
@@ -17,7 +17,7 @@ echo "------ Downloading everthing from REPO_SITE: $REPO_SITE ------"
 if [ -d $JSR308/checker-framework ] ; then
     (cd $JSR308/checker-framework && git pull)
 else
-    (cd $JSR308 && git clone --depth 1 https://github.com/"$REPO_SITE"/checker-framework.git)
+    (cd $JSR308 && git clone --depth 1 https://github.com/opprop/checker-framework.git)
 fi
 
 ## Build annotation-tools (Annotation File Utilities)
@@ -25,7 +25,7 @@ if [ -d $JSR308/annotation-tools ] ; then
     # Older versions of git don't support the -C command-line option
     (cd $JSR308/annotation-tools && git pull)
 else
-    (cd $JSR308 && git clone --depth 1 https://github.com/"$REPO_SITE"/annotation-tools.git)
+    (cd $JSR308 && git clone --depth 1 https://github.com/pascaliUWat/annotation-tools.git)
 fi
 # This also builds jsr308-langtools
 (cd $JSR308/annotation-tools/ && ./.travis-build-without-test.sh)
@@ -37,7 +37,7 @@ ant -f $JSR308/checker-framework/checker/build.xml jar
 if [ -d $JSR308/checker-framework-inference ] ; then
     (cd $JSR308/checker-framework-inference && git pull)
 else
-    (cd $JSR308 && git clone --depth 1 https://github.com/"$REPO_SITE"/checker-framework-inference.git)
+    (cd $JSR308 && git clone --depth 1 https://github.com/opprop/checker-framework-inference.git)
 fi
 
 (cd $JSR308/checker-framework-inference && gradle dist)
@@ -46,7 +46,7 @@ fi
 if [ -d $JSR308/generic-type-inference-solver ] ; then
     (cd $JSR308/generic-type-inference-solver && git pull)
 else
-    (cd $JSR308 && git clone --depth 1 https://github.com/"$REPO_SITE"/generic-type-inference-solver.git)
+    (cd $JSR308 && git clone --depth 1 https://github.com/opprop/generic-type-inference-solver.git)
 fi
 
 (cd $JSR308/generic-type-inference-solver/ && gradle build)

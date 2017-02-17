@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ROOT=$(cd $(dirname "$0")/.. && pwd)
+. $ROOT/ontology/env-setup.sh
 
 CFI="$ROOT"/checker-framework-inference
 
