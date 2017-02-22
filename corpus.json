@@ -184,6 +184,30 @@
       "git-ref": "annotated",
       "build": "mvn install",
       "clean": "mvn clean"
+    },
+    "java-callgraph":
+    {
+      "name": "java-callgraph",
+      "git-url": "https://github.com/gousiosg/java-callgraph.git",
+      "git-ref": "master",
+      "build": "mvn install",
+      "clean": "mvn clean"
+    },
+    "logback-extensions":
+    {
+      "name": "logback-extensions",
+      "git-url": "https://github.com/qos-ch/logback-extensions.git",
+      "git-ref": "master",
+      "build": "mvn clean install",
+      "clean": "mvn clean"
+    },
+    "cal10n":
+    {
+      "name": "cal10n",
+      "git-url": "https://github.com/qos-ch/cal10n.git",
+      "git-ref": "master",
+      "build": "mvn install",
+      "clean": "mvn clean"
     }
   }
 }

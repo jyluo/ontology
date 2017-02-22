@@ -3,7 +3,7 @@ ONTOLOGY_DIR=$(cd $(dirname "$0") && pwd)
 
 project=$1
 
-if [ -d $project/annotated ] ; then
+# if [ -d $project/annotated ] ; then
 	echo "annotations in java file: "
 	find $project -name *.java | xargs grep -l "@Ontology(" | grep "annotated" | xargs grep -o "@Ontology(" | wc -l
 	echo "ontology values in java file: "
@@ -14,10 +14,10 @@ if [ -d $project/annotated ] ; then
 	cloc $project | grep Java
 	echo "Files, blank, comment, source LOC in annotated:"
 	cloc $project/annotated | grep Java
-else
+# else
 	echo $project "doesn't have an annotated directory"
 
-fi
+# fi
 
 ### collecting statistics
 

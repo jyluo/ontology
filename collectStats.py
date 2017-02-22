@@ -12,7 +12,7 @@ def collect_statistics():
 	ontology = os.getcwd()
 	with fetch_corpus.cd(CORPUS_DIR):
 		for project in CORPUS_INFO['projects'].values():
-			if os.path.isdir(project['name']):
+			if os.path.isdir(project['name']) and project['name'] in ['java-callgraph', 'logback-extensions', 'cal10n']:
 				PROJECT_DIR = os.path.join(CORPUS_DIR, project['name'])
 				if 'build-dir' in project.keys():
 					PROJECT_DIR = os.path.join(PROJECT_DIR, project['build-dir'])
